@@ -1,6 +1,11 @@
 // tests.js
 
-// Use Chai's expect for assertions
+// Eğer Node.js ortamındaysak (GitHub Actions gibi) kütüphaneleri dahil et
+if (typeof require !== 'undefined') {
+  var chai = require('chai');
+  var { integerToRoman, romanToInteger } = require('./script.js');
+}
+
 const expect = chai.expect;
 
 /**
