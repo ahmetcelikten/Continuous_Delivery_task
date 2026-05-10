@@ -136,6 +136,10 @@ function handleConversion() {
     // Display any error messages encountered during conversion.
     errorDiv.textContent = error.message;
   }
+  // Fonksiyonları dışa aktar (Sadece Node.js ortamı için)
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { integerToRoman, romanToInteger };
+}
 }
 
 // Attach an event listener to the convert button to trigger the conversion when clicked.
