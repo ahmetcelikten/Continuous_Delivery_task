@@ -2,7 +2,7 @@ name: Roman Converter CD
 
 on:
   push:
-    branches: [ main ] # Sadece main branch'ine push yapıldığında çalışır
+    branches: [ main ]
 
 permissions:
   contents: write
@@ -18,24 +18,16 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-on-version: '20'
+        node-version: '20' # Doğru komut node-version
 
-    # 1. ADIM: LINTING (Kod Yazım Kontrolü)
-    - name: Run Linting
-      run: |
-        npx eslint script.js --env browser || echo "Linting tamamlandı."
+    - name: Install dependencies
+      run: npm install mocha chai
 
-    # 2. ADIM: AUTOMATED TESTING (Mocha/Chai)
-    # Projen tarayıcı tabanlı olduğu için basit bir 'headless' test veya 
-    # Node ortamında fonksiyon testleri koşturulabilir.
     - name: Run Tests
-      run: |
-        npm install mocha chai
-        npx mocha tests.js --exit
+      run: npx mocha tests.js --exit
 
-    # 3. ADIM: DEPLOY TO GITHUB PAGES
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        folder: . # Projenin ana klasörünü yayınlar
-        branch: gh-pages # Sitenin yayınlanacağı branch
+        folder: . 
+        branch: gh-pages
