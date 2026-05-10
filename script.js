@@ -136,12 +136,12 @@ function handleConversion() {
     // Display any error messages encountered during conversion.
     errorDiv.textContent = error.message;
   }
-// Sadece tarayıcı ortamındaysak buton dinleyicisini ekle
+// Sadece tarayıcı ortamındaysak (HTML yüklüyse) buton dinleyicisini ekle
 if (typeof document !== 'undefined') {
   document.getElementById('convertButton').addEventListener('click', handleConversion);
 }
 
-// Node.js (Test ortamı) için fonksiyonları dışa aktar
+// Node.js (GitHub Actions) ortamı için fonksiyonları dışa aktar
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { integerToRoman, romanToInteger };
 }
