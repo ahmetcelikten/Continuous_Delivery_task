@@ -136,7 +136,12 @@ function handleConversion() {
     // Display any error messages encountered during conversion.
     errorDiv.textContent = error.message;
   }
-  // Fonksiyonları dışa aktar (Sadece Node.js ortamı için)
+// Sadece tarayıcı ortamındaysak buton dinleyicisini ekle
+if (typeof document !== 'undefined') {
+  document.getElementById('convertButton').addEventListener('click', handleConversion);
+}
+
+// Node.js (Test ortamı) için fonksiyonları dışa aktar
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { integerToRoman, romanToInteger };
 }
