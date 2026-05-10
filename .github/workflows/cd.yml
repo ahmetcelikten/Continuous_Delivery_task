@@ -30,7 +30,7 @@ jobs:
     # Node ortamında fonksiyon testleri koşturulabilir.
     - name: Run Tests
       run: |
-        npm install mocha chai jsdom
+        npm install mocha chai
         npx mocha tests.js --exit
 
     # 3. ADIM: DEPLOY TO GITHUB PAGES
