@@ -62,18 +62,46 @@ function handleConversion() {
   const input = document.getElementById('inputValue').value.trim();
   const resultDiv = document.getElementById('result');
   const errorDiv = document.getElementById('error');
+
   resultDiv.textContent = '';
   errorDiv.textContent = '';
+
   try {
     if (mode === 'intToRoman') {
       const num = parseInt(input, 10);
-      if (isNaN(num)) throw new Error('Please enter a valid integer number.');
-      resultDiv.textContent = `Roman Numeral: ${integerToRoman(num)}`;
+      if (isNaN(num)) {
+        throw new Error('Please enter a valid integer number.');
+      }
+      const roman = integerToRoman(num);
+      resultDiv.textContent = `Roman Numeral: ${roman}`;
+
+      // 1. ÖZEL ETKİNLİK: Başarılı Tam Sayı Dönüşümü
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'successful_conversion', {
+          'conversion_type': 'int_to_roman'
+        });
+      }
+
     } else if (mode === 'romanToInt') {
-      resultDiv.textContent = `Integer: ${romanToInteger(input)}`;
+      const num = romanToInteger(input);
+      resultDiv.textContent = `Integer: ${num}`;
+
+      // 1. ÖZEL ETKİNLİK (Alternatif): Başarılı Roma Rakamı Dönüşümü
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'successful_conversion', {
+          'conversion_type': 'roman_to_int'
+        });
+      }
     }
   } catch (error) {
     errorDiv.textContent = error.message;
+
+    // 2. ÖZEL ETKİNLİK: Kullanıcı Geçersiz Veri Girip Hata Aldığında Tetiklenir
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'conversion_error', {
+        'error_message': error.message
+      });
+    }
   }
 }
 
